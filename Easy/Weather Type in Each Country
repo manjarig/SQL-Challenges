@@ -1,0 +1,31 @@
+Table: Countries
+
++---------------+---------+
+| Column Name   | Type    |
++---------------+---------+
+| country_id    | int     |
+| country_name  | varchar |
++---------------+---------+
+country_id is the primary key for this table.
+Each row of this table contains the ID and the name of one country.
+
+Solution
+
+WITH data as(
+SELECT country_id,weather_state,day
+FROM Weather
+WHERE MONTH(day)=11)
+,
+result1 as(
+SELECT data.country_id,AVG(CAST(weather_state AS FLOAT))OVER(PARTITION BY country_id ORDER BY country_id)agre
+FROM data)
+
+,result2 as(
+SELECT DISTINCT(country_id),CASE WHEN agre<=15 THEN 'Cold'
+                       WHEN agre>=25 THEN 'Hot'
+                       ELSE 'Warm' END weather_type
+FROM result1)
+
+SELECT country_name,weather_type
+FROM result2 INNER JOIN Countries
+ON result2.country_id=Countries.country_id;
