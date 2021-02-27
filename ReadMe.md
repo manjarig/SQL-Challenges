@@ -1,4 +1,4 @@
 SQL Challenge questions are from leetcode.com/problems/database.
 
 
-Questions with * are unsolved
+Some questions indicated with * are unsolved.
