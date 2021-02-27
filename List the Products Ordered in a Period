@@ -1,0 +1,24 @@
+Table: Products
+
++------------------+---------+
+| Column Name      | Type    |
++------------------+---------+
+| product_id       | int     |
+| product_name     | varchar |
+| product_category | varchar |
++------------------+---------+
+product_id is the primary key for this table.
+This table contains data about the company's products.
+
+Solution
+
+WITH data as(
+SELECT product_id,SUM(unit)agreunit 
+FROM Orders
+WHERE MONTH(order_date)=02 
+GROUP BY product_id)
+
+SELECT product_name,agreunit unit
+FROM data INNER JOIN Products
+ON data.product_id=Products.product_id
+WHERE agreunit>=100;
